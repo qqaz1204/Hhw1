@@ -238,44 +238,44 @@ int main() {
 
 ## 效能分析
 
-### Ackermann's Function 效能分析
+### Ackermann's Function 
 
 #### 1. 時間複雜度 (Time Complexity)
-Ackermann 函數的數值與呼叫次數呈**超指數級（Hyperoperation）**爆發性成長，其時間複雜度無法以常見的多項式（Polynomial）或一般指數（Exponential）時間表示。
+Ackermann 函數的數值與呼叫次數呈超指數級爆發性成長，其時間複雜度無法以常見的多項式或一般指數時間表示。
 
-* **固定 $m$ 時的時間成長**：
-  * **$m = 0$**：$\mathcal{O}(1)$，一次計算即回傳 $n + 1$。
-  * **$m = 1$**：$A(1, n) = n + 2 \implies \mathcal{O}(n)$。
-  * **$m = 2$**：$A(2, n) = 2n + 3 \implies \mathcal{O}(n)$。
-  * **$m = 3$**：$A(3, n) = 2^{n+3} - 3 \implies \mathcal{O}(2^n)$。
-  * **$m = 4$**：$A(4, n) = 2^{2^{\cdot^{\cdot^2}}} - 3$（高度為 $n+3$ 的次方塔，Knuth 箭號表示法 $2 \uparrow\uparrow (n+3)$）$\implies \mathcal{O}(2 \uparrow\uparrow n)$。
-* **整體結論**：遞迴與非遞迴版本的實質計算步數（迴圈/函式呼叫次數）完全等價，時間複雜度均為 **$\mathcal{O}(A(m, n))$**。
+* **固定 m 時的時間成長**：
+  * $m = 0$：$O(1)$，一次計算即回傳 $n + 1$。
+  * $m = 1$：$A(1, n) = n + 2 \implies O(n)$
+  * $m = 2$：$A(2, n) = 2n + 3 \implies O(n)$
+  * $m = 3$：$A(3, n) = 2^{n+3} - 3 \implies O(2^n)$
+  * $m = 4$：$A(4, n)$ 的成長速度達次方塔級別（Knuth 箭號表示法 $2 \uparrow\uparrow (n+3)$）$\implies O(2 \uparrow\uparrow n)$
+* **整體結論**：遞迴與非遞迴版本的實質計算步數（迴圈/函式呼叫次數）完全等價，時間複雜度均為 $O(A(m, n))$。
 
 #### 2. 空間複雜度 (Space Complexity)
 * **遞迴版本**：
-  * **空間複雜度**：$\mathcal{O}(A(m, n))$。
+  * **空間複雜度**：$O(A(m, n))$
   * **瓶頸分析**：遞迴呼叫的最大堆疊深度取決於 $A(m, n)$ 的計算路徑。由於作業系統分配給程式的系統 Call Stack 有限，當 $m \ge 4$ 且 $n \ge 1$ 時， Call Stack 會迅速填滿並引發 **Stack Overflow**。
 * **非遞迴版本**：
-  * **空間複雜度**：$\mathcal{O}(\text{MAX\_STACK\_SIZE})$。
+  * **空間複雜度**：$O(\text{MAX\_STACK\_SIZE})$
   * **瓶頸分析**：利用全域陣列自訂 Stack，將資料空間轉移至靜態記憶體區（Data Segment）或 Heap。雖然成功避開了系統 Call Stack 的深度限制，但若 Stack 容量設定不夠大，在處理較大輸入時仍會遭遇自訂 Stack Overflow 的問題。
 
 ---
 
-### Powerset 效能分析
+### Powerset 
 
 #### 1. 時間複雜度 (Time Complexity)
-* **時間複雜度**：$\mathcal{O}(2^n)$。
+* **時間複雜度**：$O(2^n)$
 * **數學推導**：
-  * 對於包含 $n$ 個元素的集合，每個元素皆有「選取 (Include)」與「不選取 (Exclude)」兩種獨立狀態，故總共有 $2^n$ 個不同的子集。
+  * 對於包含 $n$ 個元素的集合，每個元素皆有「選取」與「不選取」兩種獨立狀態，故總共有 $2^n$ 個不同的子集。
   * 在二元決策樹中，總節點數為 $2^0 + 2^1 + 2^2 + \dots + 2^n = 2^{n+1} - 1$。
-  * 印出每個子集平均需消耗 $\mathcal{O}(n)$ 的走訪時間，總時間複雜度精確表示為 **$\mathcal{O}(n \cdot 2^n)$**。
+  * 印出每個子集平均需消耗 $O(n)$ 的走訪時間，總時間複雜度精確表示為 $O(n \cdot 2^n)$。
 
 #### 2. 空間複雜度 (Space Complexity)
-* **空間複雜度**：$\mathcal{O}(n)$。
+* **空間複雜度**：$O(n)$
 * **瓶頸分析**：
-  * **遞迴呼叫堆疊**：遞迴樹的最大深度等於集合元素個數 $n$，因此 Call Stack 的最大深度為 $\mathcal{O}(n)$。
-  * **輔助空間**：長度為 $n$ 的布林陣列 `selected` 用於記錄當前決策狀態，空間為 $\mathcal{O}(n)$。
-  * 相比於直接將所有子集一次性儲存到記憶體中（需 $\mathcal{O}(n \cdot 2^n)$ 空間），這種**回溯法（Backtracking）**能將空間使用量大幅降至最優的 $\mathcal{O}(n)$。
+  * **遞迴呼叫堆疊**：遞迴樹的最大深度等於集合元素個數 $n$，因此 Call Stack 的最大深度為 $O(n)$。
+  * **輔助空間**：長度為 $n$ 的布林陣列 `selected` 用於記錄當前決策狀態，空間為 $O(n)$。
+  * 相比於直接將所有子集一次性儲存到記憶體中（需 $O(n \cdot 2^n)$ 空間），這種**回溯法**能將空間使用量大幅降至最優的 $O(n)$。
 
 ---
 
@@ -283,8 +283,8 @@ Ackermann 函數的數值與呼叫次數呈**超指數級（Hyperoperation）**�
 
 | 分析項目 | Ackermann (遞迴版) | Ackermann (非遞迴版) | Powerset (遞迴版) |
 | :--- | :--- | :--- | :--- |
-| **時間複雜度** | $\mathcal{O}(A(m, n))$ | $\mathcal{O}(A(m, n))$ | $\mathcal{O}(n \cdot 2^n)$ |
-| **空間複雜度** | $\mathcal{O}(A(m, n))$ | $\mathcal{O}(\text{MAX\_STACK\_SIZE})$ | $\mathcal{O}(n)$ |
+| **時間複雜度** | $O(A(m, n))$ | $O(A(m, n))$ | $O(n \cdot 2^n)$ |
+| **空間複雜度** | $O(A(m, n))$ | $O(\text{MAX\_STACK\_SIZE})$ | $O(n)$ |
 | **記憶體區域** | System Call Stack | Static / Heap Array | System Call Stack |
 | **主要效能瓶頸** | 系統 Stack Overflow | 自訂 Stack 陣列大小限制 | 子集數量隨 $n$ 呈指數增長 |
 
@@ -292,7 +292,6 @@ Ackermann 函數的數值與呼叫次數呈**超指數級（Hyperoperation）**�
 
 ### 測試案例
 
-### 測試環境 (Test Environment)
 
 ### Ackermann's Function 測試案例
 
