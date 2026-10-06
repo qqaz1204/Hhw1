@@ -6,14 +6,24 @@
 
 本作業包含兩個主要問題：
 
-### Problem 1: Ackermann's Function
+### Ackermann's Function
 Ackermann 函數 $A(m, n)$ 定義如下：
-$$A(m,n) =  \begin{cases} n + 1 & , \text{if } m = 0 \\ A(m-1, 1) & , \text{if } n = 0 \\ A(m-1, A(m, n-1)) & , \text{otherwise} \end{cases}$$
+
+$$
+A(m, n) = 
+\begin{cases} 
+n + 1 & \text{if } m = 0 \\
+A(m - 1, 1) & \text{if } n = 0 \\
+A(m - 1, A(m, n - 1)) & \text{otherwise}
+\end{cases}
+$$
+
 * **遞迴實作 (Recursive)**：直接依據數學定義進行遞迴呼叫。
 * **非遞迴實作 (Non-recursive)**：利用自訂 Stack（堆疊）模擬系統呼叫堆疊（Call Stack），避免過深遞迴導致系統 Stack Overflow。
 
-### Problem 2: Powerset
-對於給定包含 $n$ 個元素的集合 $S$，Powerset 為包含 $S$ 所有可能子集的集合。例如 $S = (a,b,c)$，其 Powerset 為 $\{\emptyset, (a), (b), (c), (a,b), (a,c), (b,c), (a,b,c)\}$。
+### Powerset
+對於給定包含 $n$ 個元素的集合 $S$，Powerset 為包含 $S$ 所有可能子集的集合。例如 $S = (a, b, c)$，其 Powerset 為 $\{\emptyset, (a), (b), (c), (a, b), (a, c), (b, c), (a, b, c)\}$。
+
 * **遞迴實作**：針對每個元素進行 Include / Exclude（選或不選）的二元分歧，遞迴建構出所有 $2^n$ 個子集。
 
 
