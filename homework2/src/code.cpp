@@ -1,3 +1,4 @@
+```cpp
 #include <iostream>
 #include <cmath>
 #include <algorithm>
@@ -209,6 +210,6 @@ int main() {
     cout << "p1 * p2 = " << p1.Mult(p2) << endl;
     cout << "p1(2.0) = " << p1.Eval(2.0f) << endl;
     cout << "p2(2.0) = " << p2.Eval(2.0f) << endl;
-
+```
     return 0;
 }
