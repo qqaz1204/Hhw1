@@ -1,4 +1,4 @@
-```cpp
+
 #include <iostream>
 #include <cmath>
 #include <algorithm>
@@ -212,4 +212,3 @@ int main() {
     cout << "p2(2.0) = " << p2.Eval(2.0f) << endl;
     return 0;
 }
-```
