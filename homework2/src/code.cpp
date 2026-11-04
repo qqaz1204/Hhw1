@@ -1,4 +1,4 @@
-
+```cpp
 #include <iostream>
 #include <cmath>
 #include <algorithm>
@@ -6,7 +6,6 @@
 using namespace std;
 
 class Polynomial; 
-
 struct Term {
     float coef; 
     int exp;    
@@ -14,25 +13,27 @@ struct Term {
 
 class Polynomial {
 private:
-    Term* termArray; 
+    Term *termArray; 
     int capacity;    
     int terms;       
 
 public:
     Polynomial();                   
-    Polynomial(const Polynomial& a); 
+    Polynomial(const Polynomial &a); 
     ~Polynomial();                   
 
-    Polynomial& operator=(const Polynomial& a);
-    Polynomial Add(Polynomial poly);
-    Polynomial Mult(Polynomial poly);
-    float Eval(float f);
+    Polynomial& operator=(const Polynomial &a); 
 
-    void NewTerm(float theCoef, int theExp);
+    Polynomial Add(Polynomial poly); 
+    Polynomial Mult(Polynomial poly); 
+    float Eval(float f);              
 
-    friend istream& operator>>(istream& s, Polynomial& p);
-    friend ostream& operator<<(ostream& s, const Polynomial& p);
+    void NewTerm(float theCoef, int theExp); 
+
+    friend istream &operator>>(istream &s, Polynomial &p);
+    friend ostream &operator<<(ostream &s, const Polynomial &p);
 };
+
 
 Polynomial::Polynomial() {
     terms = 0;
@@ -40,7 +41,7 @@ Polynomial::Polynomial() {
     termArray = new Term[capacity];
 }
 
-Polynomial::Polynomial(const Polynomial& a) {
+Polynomial::Polynomial(const Polynomial &a) {
     terms = a.terms;
     capacity = a.capacity;
     termArray = new Term[capacity];
@@ -53,13 +54,10 @@ Polynomial::~Polynomial() {
     delete[] termArray;
 }
 
-// 指定運算子實作 (深複製)
-Polynomial& Polynomial::operator=(const Polynomial& a) {
-    if (this == &a) {
-        return *this;
-    }
+Polynomial& Polynomial::operator=(const Polynomial &a) {
+    if (this == &a) return *this;
     delete[] termArray;
-
+    
     terms = a.terms;
     capacity = a.capacity;
     termArray = new Term[capacity];
@@ -69,11 +67,12 @@ Polynomial& Polynomial::operator=(const Polynomial& a) {
     return *this;
 }
 
+
 void Polynomial::NewTerm(float theCoef, int theExp) {
     if (theCoef == 0.0f) return;
     if (terms == capacity) {
         capacity *= 2;
-        Term* temp = new Term[capacity];
+        Term *temp = new Term[capacity];
         for (int i = 0; i < terms; i++) {
             temp[i] = termArray[i];
         }
@@ -96,12 +95,10 @@ Polynomial Polynomial::Add(Polynomial poly) {
             }
             aPos++;
             bPos++;
-        }
-        else if (termArray[aPos].exp < poly.termArray[bPos].exp) {
+        } else if (termArray[aPos].exp < poly.termArray[bPos].exp) {
             c.NewTerm(poly.termArray[bPos].coef, poly.termArray[bPos].exp);
             bPos++;
-        }
-        else {
+        } else {
             c.NewTerm(termArray[aPos].coef, termArray[aPos].exp);
             aPos++;
         }
@@ -137,14 +134,15 @@ float Polynomial::Eval(float f) {
     return result;
 }
 
-istream& operator>>(istream& s, Polynomial& p) {
+
+istream &operator>>(istream &s, Polynomial &p) {
     delete[] p.termArray;
-    cout << "輸入多項式項數: ";
+    cout << "輸入多項式項數 (terms): ";
     s >> p.terms;
     p.capacity = max(p.terms, 10);
     p.termArray = new Term[p.capacity];
 
-    cout << "依序輸入每一項的「係數」與「指數」:\n";
+    cout << "請依序輸入每一項的「係數」與「指數」:\n";
     for (int i = 0; i < p.terms; i++) {
         cout << "第 " << i + 1 << " 項 (coef exp): ";
         s >> p.termArray[i].coef >> p.termArray[i].exp;
@@ -162,7 +160,7 @@ istream& operator>>(istream& s, Polynomial& p) {
     return s;
 }
 
-ostream& operator<<(ostream& s, const Polynomial& p) {
+ostream &operator<<(ostream &s, const Polynomial &p) {
     if (p.terms == 0) {
         s << "0";
         return s;
@@ -170,11 +168,9 @@ ostream& operator<<(ostream& s, const Polynomial& p) {
     for (int i = 0; i < p.terms; i++) {
         if (i > 0 && p.termArray[i].coef > 0) {
             s << " + ";
-        }
-        else if (p.termArray[i].coef < 0) {
+        } else if (p.termArray[i].coef < 0) {
             s << " - ";
-        }
-        else if (i > 0) {
+        } else if (i > 0) {
             s << " + ";
         }
 
@@ -183,12 +179,10 @@ ostream& operator<<(ostream& s, const Polynomial& p) {
 
         if (e == 0) {
             s << c;
-        }
-        else if (e == 1) {
+        } else if (e == 1) {
             if (c != 1.0f) s << c;
             s << "x";
-        }
-        else {
+        } else {
             if (c != 1.0f) s << c;
             s << "x^" << e;
         }
@@ -198,17 +192,22 @@ ostream& operator<<(ostream& s, const Polynomial& p) {
 
 int main() {
     Polynomial p1, p2;
-    cout << "=== p1 ===" << endl;
+    cout << "=== Homework 2 Testing ===" << endl;
+
+    cout << "\n=== 測試 p1 ===" << endl;
     cin >> p1;
-    cout << "p1(x) = " << p1 << endl << endl;
+    cout << "p1(x) = " << p1 << endl;
 
-    cout << "=== p2 ===" << endl;
+    cout << "\n=== 測試 p2 ===" << endl;
     cin >> p2;
-    cout << "p2(x) = " << p2 << endl << endl;
+    cout << "p2(x) = " << p2 << endl;
 
+    cout << "\n=== 運算結果 ===" << endl;
     cout << "p1 + p2 = " << p1.Add(p2) << endl;
     cout << "p1 * p2 = " << p1.Mult(p2) << endl;
     cout << "p1(2.0) = " << p1.Eval(2.0f) << endl;
     cout << "p2(2.0) = " << p2.Eval(2.0f) << endl;
+
     return 0;
 }
+
