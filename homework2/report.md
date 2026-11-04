@@ -7,13 +7,13 @@
 本作業主要為實作多項式抽象資料型態 (Polynomial Abstract Data Type, ADT) 及其相關運算，並透過 C++ 運算子多載 (Operator Overloading) 實現靈活的多項式輸入與輸出功能。
 
 ### 多項式 (Polynomial) ADT
-多項式 $p(x) = a_0 x^{e_0} + a_1 x^{e_1} + \dots + a_n x^{e_n}$ 可視為一組由有序對 $<e_i, a_i>$ 所組成的集合，其中 $a_i$ 為非零的浮點數係數 (float coefficient)，$e_i$ 為非負整數指數 (non-negative integer exponent)。
+多項式 $p(x) = a_0 x^{e_0} + a_1 x^{e_1} + \dots + a_n x^{e_n}$ 可視為一組由有序對 $<e_i, a_i>$ 所組成的集合，其中 $a_i$ 為非零的浮點數係數。
 
 本實作包含以下主要成員函式與運算子多載：
 - **`Polynomial()`**：預設建構子，將多項式初始化為 $p(x) = 0$。
 - **`Polynomial(const Polynomial &a)`**：複製建構子 (Copy Constructor)，實現多項式物件之深複製 (Deep Copy)。
-- **`Polynomial& operator=(const Polynomial &a)`**：指定運算子 (Copy Assignment Operator)，避免動態記憶體配置帶來的 Dangling Pointer 與二次釋放 (Double Free) 崩潰問題。
-- **`~Polynomial()`**：解構子，動態釋放多項式項陣列 (`termArray`) 之記憶體空間。
+- **`Polynomial& operator=(const Polynomial &a)`**：指定運算子 (Copy Assignment Operator)，避免動態記憶體配置帶來的 Dangling Pointer 與二次釋放崩潰問題。
+- **`~Polynomial()`**：解構子，動態釋放多項式項陣列之記憶體空間。
 - **`Add(Polynomial poly)`**：多項式加法，將 `*this` 與 `poly` 相加後回傳新的多項式物件。
 - **`Mult(Polynomial poly)`**：多項式乘法，將 `*this` 與 `poly` 相乘後回傳新的多項式物件。
 - **`Eval(float f)`**：代入求值，計算多項式在 $x = f$ 時的數值結果。
