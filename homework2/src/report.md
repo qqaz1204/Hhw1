@@ -4,6 +4,23 @@
 
 本作業主要依據課程規格，實作多項式抽象資料型態及其相關運算，並透過 C++ 運算子多載實現多項式的輸入與輸出功能。
 
+根據題目規範，主要包含兩個類別：
+* **`Term` 結構/類別**：用來儲存單一非零項，包含：
+  - `float coef`：係數
+  - `int exp`：指數
+* **`Polynomial` 類別**：
+  - **私有成員**：
+    - `Term *termArray`：動態配置的非零項陣列。
+    - `int capacity`：陣列的最大容量。
+    - `int terms`：目前儲存的非零項數量。
+  - **公開方法 **：
+    - `Polynomial()`：預設建構子，初始化 $p(x) = 0$。
+    - `Polynomial Add(Polynomial poly)`：多項式加法，返回兩多項式相加後的結果。
+    - `Polynomial Mult(Polynomial poly)`：多項式乘法，返回兩多項式相乘後的結果。
+    - `float Eval(float f)`：多項式求值，代入 $x = f$ 計算結果。
+    - `friend ostream& operator<<(ostream&, const Polynomial&)`：過載輸出運算子。
+    - `friend istream& operator>>(istream&, Polynomial&)`：過載輸入運算子。
+
 ## 解題策略
 
 多項式可表示為數學式：
@@ -28,7 +45,6 @@ $$p(x) = a_0x^{e_0} + a_1x^{e_1} + \dots + a_nx^{e_n}$$
 #include <algorithm>
 
 using namespace std;
-// Forward declaration
 
 struct Term {
     float coef; 
