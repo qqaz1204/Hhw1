@@ -28,7 +28,6 @@ $$p(x) = a_0x^{e_0} + a_1x^{e_1} + \dots + a_nx^{e_n}$$
 #include <algorithm>
 
 using namespace std;
-// Forward declaration
 
 struct Term {
     float coef; 
